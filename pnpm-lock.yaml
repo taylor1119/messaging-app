@@ -41,6 +41,9 @@ importers:
       '@types/express':
         specifier: ^4.17.21
         version: 4.17.21
+      '@types/hpp':
+        specifier: ^0.2.6
+        version: 0.2.6
       '@types/jsonwebtoken':
         specifier: ^9.0.6
         version: 9.0.6
@@ -96,9 +99,6 @@ importers:
       '@faker-js/faker':
         specifier: ^8.4.1
         version: 8.4.1
-      '@types/hpp':
-        specifier: ^0.2.6
-        version: 0.2.6
       '@types/node':
         specifier: ^20.14.2
         version: 20.14.2
