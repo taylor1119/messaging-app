@@ -70,7 +70,7 @@ const Navbar = () => {
 			<Toolbar>
 				<Box
 					component='img'
-					src='./logo.png'
+					src='/logo.png'
 					sx={{ width: '40px', height: '40px', mr: '5px' }}
 				/>
 				<Typography

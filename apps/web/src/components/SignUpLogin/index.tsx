@@ -28,7 +28,7 @@ const SignUpLogin = () => {
 			<Stack direction='row' justifyContent='center' alignItems='center'>
 				<Box
 					component='img'
-					src='./logo.png'
+					src='/logo.png'
 					sx={{ width: '40px', height: '40px', mr: '5px' }}
 				/>
 				<Typography variant='h4'>Messenger</Typography>
