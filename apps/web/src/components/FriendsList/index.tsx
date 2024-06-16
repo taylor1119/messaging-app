@@ -78,7 +78,7 @@ const FriendsListItem = ({
 				</ConditionalWrapper>
 			</ListItemAvatar>
 			<ListItemText
-				sx={{ display: { xs: 'none', md: 'inherit' }, ml: '12px' }}
+				sx={{ display: { xs: 'none', md: 'inherit' }, px: '12px' }}
 				primary={friend.userName}
 			/>
 		</ListItem>
@@ -98,7 +98,7 @@ const FriendsList = () => {
 				'& .MuiDrawer-paper': {
 					width: { xs: '103px', md: '360px' },
 					boxSizing: 'border-box',
-					mt: { xs: '56px', sm: '64px' },
+					pt: { xs: '56px', sm: '64px' },
 				},
 
 				zIndex: 0,
@@ -108,9 +108,8 @@ const FriendsList = () => {
 		>
 			<List
 				sx={{
-					width: '360px',
 					mx: '8px',
-					mt: '8px',
+					pt: '8px',
 					'& .MuiButtonBase-root': {
 						borderRadius: '8px',
 						':hover': {
