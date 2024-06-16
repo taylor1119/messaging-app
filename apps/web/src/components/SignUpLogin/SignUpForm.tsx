@@ -1,5 +1,5 @@
-import useSignUp from '@/hooks/useSignUp';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import useSignUp from '@/hooks/useSignUp'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
 	Button,
 	ButtonTypeMap,
@@ -12,8 +12,8 @@ import {
 	Paper,
 	Stack,
 	Typography,
-} from '@mui/material';
-import { useState } from 'react';
+} from '@mui/material'
+import { useState } from 'react'
 
 const SignUpForm = () => {
 	const {
@@ -23,32 +23,32 @@ const SignUpForm = () => {
 		},
 		useMutationReturn: { status, isLoading },
 		onSubmit,
-	} = useSignUp();
+	} = useSignUp()
 
-	const [showPassword, setShowPassword] = useState(false);
-	const handleToggleShowPassword = () => setShowPassword((prev) => !prev);
+	const [showPassword, setShowPassword] = useState(false)
+	const handleToggleShowPassword = () => setShowPassword((prev) => !prev)
 
-	let btnText = 'sign up';
-	let btnColor: ButtonTypeMap['props']['color'] = 'primary';
+	let btnText = 'sign up'
+	let btnColor: ButtonTypeMap['props']['color'] = 'primary'
 
 	switch (status) {
 		case 'idle':
-			btnColor = 'primary';
-			btnText = 'sign up';
-			break;
+			btnColor = 'primary'
+			btnText = 'sign up'
+			break
 		case 'loading':
-			btnText = 'signing up...';
-			break;
+			btnText = 'signing up...'
+			break
 		case 'success':
-			btnText = 'try logging in';
-			btnColor = 'success';
-			break;
+			btnText = 'try logging in'
+			btnColor = 'success'
+			break
 		case 'error':
-			btnText = 'something went wrong';
-			btnColor = 'error';
-			break;
+			btnText = 'something went wrong'
+			btnColor = 'error'
+			break
 		default:
-			break;
+			break
 	}
 
 	return (
@@ -57,7 +57,10 @@ const SignUpForm = () => {
 				<Typography align='center' variant='h5'>
 					Sign up
 				</Typography>
-				<FormControl variant='outlined' error={Boolean(errors.userName)}>
+				<FormControl
+					variant='outlined'
+					error={Boolean(errors.userName)}
+				>
 					<InputLabel htmlFor='userName'>Username</InputLabel>
 					<OutlinedInput
 						id='userName'
@@ -78,11 +81,18 @@ const SignUpForm = () => {
 						{...register('email')}
 						disabled={isLoading}
 					/>
-					<FormHelperText id='email'>{errors.email?.message}</FormHelperText>
+					<FormHelperText id='email'>
+						{errors.email?.message}
+					</FormHelperText>
 				</FormControl>
 
-				<FormControl variant='outlined' error={Boolean(errors.confirmEmail)}>
-					<InputLabel htmlFor='confirmEmail'>Confirm Email</InputLabel>
+				<FormControl
+					variant='outlined'
+					error={Boolean(errors.confirmEmail)}
+				>
+					<InputLabel htmlFor='confirmEmail'>
+						Confirm Email
+					</InputLabel>
 					<OutlinedInput
 						id='confirmEmail'
 						label='confirmEmail'
@@ -103,11 +113,18 @@ const SignUpForm = () => {
 						{...register('password')}
 						disabled={isLoading}
 					/>
-					<FormHelperText id='email'>{errors.password?.message}</FormHelperText>
+					<FormHelperText id='email'>
+						{errors.password?.message}
+					</FormHelperText>
 				</FormControl>
 
-				<FormControl variant='outlined' error={Boolean(errors.confirmPassword)}>
-					<InputLabel htmlFor='confirmPassword'>Confirm Password</InputLabel>
+				<FormControl
+					variant='outlined'
+					error={Boolean(errors.confirmPassword)}
+				>
+					<InputLabel htmlFor='confirmPassword'>
+						Confirm Password
+					</InputLabel>
 					<OutlinedInput
 						id='confirmPassword'
 						label='confirmPassword'
@@ -121,7 +138,11 @@ const SignUpForm = () => {
 									onClick={handleToggleShowPassword}
 									edge='end'
 								>
-									{showPassword ? <VisibilityOff /> : <Visibility />}
+									{showPassword ? (
+										<VisibilityOff />
+									) : (
+										<Visibility />
+									)}
 								</IconButton>
 							</InputAdornment>
 						}
@@ -142,7 +163,7 @@ const SignUpForm = () => {
 				</Button>
 			</Stack>
 		</Paper>
-	);
-};
+	)
+}
 
-export default SignUpForm;
+export default SignUpForm

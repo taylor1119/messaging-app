@@ -1,6 +1,6 @@
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
-import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import AddCircleIcon from '@mui/icons-material/AddCircle'
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
+import SendRoundedIcon from '@mui/icons-material/SendRounded'
 import {
 	alpha,
 	IconButton,
@@ -10,7 +10,7 @@ import {
 	Skeleton,
 	Stack,
 	styled,
-} from '@mui/material';
+} from '@mui/material'
 
 const CustomInput = styled(InputBase)(({ theme }) => ({
 	position: 'relative',
@@ -25,7 +25,7 @@ const CustomInput = styled(InputBase)(({ theme }) => ({
 	'& .MuiInputBase-input': {
 		paddingInline: '10px',
 	},
-}));
+}))
 
 const SkeletonChatMsg = ({ isOwn }: { isOwn: boolean }) => {
 	return isOwn ? (
@@ -58,8 +58,8 @@ const SkeletonChatMsg = ({ isOwn }: { isOwn: boolean }) => {
 				sx={{ borderRadius: 16 }}
 			/>
 		</Stack>
-	);
-};
+	)
+}
 
 const ChatBoxSkeleton = () => (
 	<Stack sx={{ flexGrow: 1 }}>
@@ -92,7 +92,13 @@ const ChatBoxSkeleton = () => (
 					disabled={true}
 					endAdornment={
 						<InputAdornment position='end'>
-							<IconButton sx={{ height: '28px', width: '28px', mr: '4px' }}>
+							<IconButton
+								sx={{
+									height: '28px',
+									width: '28px',
+									mr: '4px',
+								}}
+							>
 								<EmojiEmotionsIcon color='primary' />
 							</IconButton>
 						</InputAdornment>
@@ -104,6 +110,6 @@ const ChatBoxSkeleton = () => (
 			</Stack>
 		</Paper>
 	</Stack>
-);
+)
 
-export default ChatBoxSkeleton;
+export default ChatBoxSkeleton

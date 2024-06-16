@@ -1,8 +1,8 @@
-import { atom } from 'recoil';
+import { atom } from 'recoil'
 
 const friendDetailsOpenState = atom<boolean>({
 	key: 'friendDetailsOpenState',
 	default: false,
-});
+})
 
-export default friendDetailsOpenState;
+export default friendDetailsOpenState

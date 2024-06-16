@@ -1,9 +1,9 @@
-import useLogin from '@/hooks/useLogin';
+import useLogin from '@/hooks/useLogin'
 import {
 	SwitchAccount as SwitchAccountIcon,
 	Visibility,
 	VisibilityOff,
-} from '@mui/icons-material';
+} from '@mui/icons-material'
 import {
 	Button,
 	FormControl,
@@ -15,9 +15,9 @@ import {
 	Paper,
 	Stack,
 	Typography,
-} from '@mui/material';
-import { useState } from 'react';
-import MockAccountsList from './MockAccountsList';
+} from '@mui/material'
+import { useState } from 'react'
+import MockAccountsList from './MockAccountsList'
 
 const LoginForm = () => {
 	const {
@@ -27,28 +27,28 @@ const LoginForm = () => {
 		},
 		useMutationResult: { isLoading, status, isError, error, mutate },
 		onSubmit,
-	} = useLogin();
+	} = useLogin()
 
-	const [showPassword, setShowPassword] = useState(false);
-	const handleToggleShowPassword = () => setShowPassword((prev) => !prev);
+	const [showPassword, setShowPassword] = useState(false)
+	const handleToggleShowPassword = () => setShowPassword((prev) => !prev)
 
-	const [openMockAccountsList, setMockAccountsList] = useState(false);
-	const handleOpenOpenMockAccountsList = () => setMockAccountsList(true);
-	const handleCloseOpenMockAccountsList = () => setMockAccountsList(false);
+	const [openMockAccountsList, setMockAccountsList] = useState(false)
+	const handleOpenOpenMockAccountsList = () => setMockAccountsList(true)
+	const handleCloseOpenMockAccountsList = () => setMockAccountsList(false)
 
-	let btnText = 'log in';
+	let btnText = 'log in'
 	switch (status) {
 		case 'idle':
-			btnText = 'log in';
-			break;
+			btnText = 'log in'
+			break
 		case 'loading':
-			btnText = 'logging in...';
-			break;
+			btnText = 'logging in...'
+			break
 		case 'error':
-			btnText = error?.response?.data?.error ?? 'something went wrong';
-			break;
+			btnText = error?.response?.data?.error ?? 'something went wrong'
+			break
 		default:
-			break;
+			break
 	}
 
 	return (
@@ -58,7 +58,10 @@ const LoginForm = () => {
 					<Typography align='center' variant='h5'>
 						Login
 					</Typography>
-					<FormControl variant='outlined' error={Boolean(errors.email)}>
+					<FormControl
+						variant='outlined'
+						error={Boolean(errors.email)}
+					>
 						<InputLabel htmlFor='email'>Email</InputLabel>
 						<OutlinedInput
 							id='email'
@@ -66,10 +69,15 @@ const LoginForm = () => {
 							{...register('email')}
 							disabled={isLoading}
 						/>
-						<FormHelperText id='email'>{errors.email?.message}</FormHelperText>
+						<FormHelperText id='email'>
+							{errors.email?.message}
+						</FormHelperText>
 					</FormControl>
 
-					<FormControl variant='outlined' error={Boolean(errors.password)}>
+					<FormControl
+						variant='outlined'
+						error={Boolean(errors.password)}
+					>
 						<InputLabel htmlFor='password'>Password</InputLabel>
 						<OutlinedInput
 							id='password'
@@ -84,7 +92,11 @@ const LoginForm = () => {
 										onClick={handleToggleShowPassword}
 										edge='end'
 									>
-										{showPassword ? <VisibilityOff /> : <Visibility />}
+										{showPassword ? (
+											<VisibilityOff />
+										) : (
+											<Visibility />
+										)}
 									</IconButton>
 								</InputAdornment>
 							}
@@ -118,12 +130,14 @@ const LoginForm = () => {
 				</Stack>
 			</Paper>
 			<MockAccountsList
-				handleCloseOpenMockAccountsList={handleCloseOpenMockAccountsList}
+				handleCloseOpenMockAccountsList={
+					handleCloseOpenMockAccountsList
+				}
 				openMockAccountsList={openMockAccountsList}
 				mutate={mutate}
 			/>
 		</>
-	);
-};
+	)
+}
 
-export default LoginForm;
+export default LoginForm

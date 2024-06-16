@@ -6,22 +6,22 @@ import {
 	Theme,
 	ThemeProvider,
 	useMediaQuery,
-} from '@mui/material';
-import { Suspense, useEffect, useMemo } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import ChatBox from './components/ChatBox';
-import ChatBoxSkeleton from './components/ChatBox/Skeleton';
-import ErrorBoundary from './components/ErrorBoundary';
-import FriendDetails from './components/FriendDetails';
-import FriendSearch from './components/FriendSearch';
-import FriendsList from './components/FriendsList';
-import FriendsListSkeleton from './components/FriendsList/Skeleton';
-import Loading from './components/Loading';
-import Navbar from './components/Navbar';
-import SignUpLogin from './components/SignUpLogin';
-import { useSocketConnect } from './hooks/useSocket';
-import currentUserState from './recoil/currentUser/atom';
-import themeState from './recoil/theme/atom';
+} from '@mui/material'
+import { Suspense, useEffect, useMemo } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import ChatBox from './components/ChatBox'
+import ChatBoxSkeleton from './components/ChatBox/Skeleton'
+import ErrorBoundary from './components/ErrorBoundary'
+import FriendDetails from './components/FriendDetails'
+import FriendSearch from './components/FriendSearch'
+import FriendsList from './components/FriendsList'
+import FriendsListSkeleton from './components/FriendsList/Skeleton'
+import Loading from './components/Loading'
+import Navbar from './components/Navbar'
+import SignUpLogin from './components/SignUpLogin'
+import { useSocketConnect } from './hooks/useSocket'
+import currentUserState from './recoil/currentUser/atom'
+import themeState from './recoil/theme/atom'
 
 const getTheme = (mode: PaletteMode): Theme =>
 	createTheme({
@@ -38,10 +38,10 @@ const getTheme = (mode: PaletteMode): Theme =>
 				},
 			},
 		},
-	});
+	})
 
 const Main = () => {
-	useSocketConnect();
+	useSocketConnect()
 
 	return (
 		<>
@@ -58,31 +58,31 @@ const Main = () => {
 				<FriendDetails />
 			</Stack>
 		</>
-	);
-};
+	)
+}
 
 const App = () => {
-	const [theme, setTheme] = useRecoilState(themeState);
+	const [theme, setTheme] = useRecoilState(themeState)
 
 	const prefThemeMode = useMediaQuery('(prefers-color-scheme: dark)')
 		? 'dark'
-		: 'light';
+		: 'light'
 
 	const muiTheme = useMemo(
 		() => getTheme(theme.isUserPicked ? theme.mode : prefThemeMode),
 		[prefThemeMode, theme]
-	);
+	)
 
 	useEffect(() => {
-		if (theme.isUserPicked) return;
+		if (theme.isUserPicked) return
 
 		setTheme({
 			isUserPicked: false,
 			mode: prefThemeMode,
-		});
-	}, [prefThemeMode, setTheme, theme.isUserPicked]);
+		})
+	}, [prefThemeMode, setTheme, theme.isUserPicked])
 
-	const currentUser = useRecoilValue(currentUserState);
+	const currentUser = useRecoilValue(currentUserState)
 
 	return (
 		<ThemeProvider theme={muiTheme}>
@@ -93,7 +93,7 @@ const App = () => {
 				</ErrorBoundary>
 			</Suspense>
 		</ThemeProvider>
-	);
-};
+	)
+}
 
-export default App;
+export default App

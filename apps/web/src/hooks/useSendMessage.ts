@@ -1,34 +1,34 @@
-import { useMutation, useQueryClient } from 'react-query';
-import { IChatMsg } from 'shared';
-import { TSendMessageInput } from '../common/types';
-import queryKeys from '../constants/reactQueryKeys';
-import { axiosInstance } from '../services/axios';
+import { useMutation, useQueryClient } from 'react-query'
+import { IChatMsg } from 'shared'
+import { TSendMessageInput } from '../common/types'
+import queryKeys from '../constants/reactQueryKeys'
+import { axiosInstance } from '../services/axios'
 
 const sendMessage = async (
 	sendMessageInput: TSendMessageInput
 ): Promise<unknown> => {
 	const { data } = await axiosInstance.post(`/messages`, sendMessageInput, {
 		withCredentials: true,
-	});
-	return data;
-};
+	})
+	return data
+}
 
 const useSendMessage = () => {
-	const queryClient = useQueryClient();
+	const queryClient = useQueryClient()
 
 	return useMutation(sendMessage, {
 		// When mutate is called:
 
 		onMutate: async (newMessage) => {
-			const queryKey = [queryKeys.conversation, newMessage.targetId];
+			const queryKey = [queryKeys.conversation, newMessage.targetId]
 			// Cancel any outgoing refetch (so they don't overwrite our optimistic update)
 
-			await queryClient.cancelQueries(queryKey);
+			await queryClient.cancelQueries(queryKey)
 
 			// Snapshot the previous value
 
 			const previousConversation =
-				queryClient.getQueryData<IChatMsg[]>(queryKey);
+				queryClient.getQueryData<IChatMsg[]>(queryKey)
 
 			// Optimistically update to the new value
 
@@ -38,11 +38,11 @@ const useSendMessage = () => {
 					...newMessage,
 					status: 'pending',
 				})
-			);
+			)
 
 			// Return a context object with the snapshot value
 
-			return { previousConversation };
+			return { previousConversation }
 		},
 
 		// If the mutation fails, use the context returned from onMutate to roll back
@@ -51,7 +51,7 @@ const useSendMessage = () => {
 			queryClient.setQueryData(
 				[queryKeys.conversation, newMessage.targetId],
 				context?.previousConversation
-			);
+			)
 		},
 
 		// Always refetch after error or success:
@@ -60,9 +60,9 @@ const useSendMessage = () => {
 			queryClient.invalidateQueries([
 				queryKeys.conversation,
 				newMessage.targetId,
-			]);
+			])
 		},
-	});
-};
+	})
+}
 
-export default useSendMessage;
+export default useSendMessage

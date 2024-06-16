@@ -1,30 +1,30 @@
-import friendsSearchDialogOpenState from '@/recoil/friendsSearchDialogOpen/atom';
-import userSearchTermState from '@/recoil/userSearchTerm/atom';
-import CloseIcon from '@mui/icons-material/Close';
-import SearchIcon from '@mui/icons-material/Search';
-import { alpha, Dialog, styled } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
-import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
-import Slide from '@mui/material/Slide';
-import Toolbar from '@mui/material/Toolbar';
-import { TransitionProps } from '@mui/material/transitions';
-import { debounce } from 'lodash';
-import { forwardRef, Suspense, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import Loading from '../Loading';
-import ReceivedRequests from './ReceivedRequests';
-import SearchResults from './SearchResults';
-import SentRequests from './SentRequests';
+import friendsSearchDialogOpenState from '@/recoil/friendsSearchDialogOpen/atom'
+import userSearchTermState from '@/recoil/userSearchTerm/atom'
+import CloseIcon from '@mui/icons-material/Close'
+import SearchIcon from '@mui/icons-material/Search'
+import { alpha, Dialog, styled } from '@mui/material'
+import AppBar from '@mui/material/AppBar'
+import IconButton from '@mui/material/IconButton'
+import InputBase from '@mui/material/InputBase'
+import Slide from '@mui/material/Slide'
+import Toolbar from '@mui/material/Toolbar'
+import { TransitionProps } from '@mui/material/transitions'
+import { debounce } from 'lodash'
+import { forwardRef, Suspense, useEffect, useState } from 'react'
+import { useRecoilState } from 'recoil'
+import Loading from '../Loading'
+import ReceivedRequests from './ReceivedRequests'
+import SearchResults from './SearchResults'
+import SentRequests from './SentRequests'
 
 const Transition = forwardRef(function Transition(
 	props: TransitionProps & {
-		children: React.ReactElement;
+		children: React.ReactElement
 	},
 	ref: React.Ref<unknown>
 ) {
-	return <Slide direction='up' ref={ref} {...props} />;
-});
+	return <Slide direction='up' ref={ref} {...props} />
+})
 
 const Search = styled('div')(({ theme }) => ({
 	position: 'relative',
@@ -40,7 +40,7 @@ const Search = styled('div')(({ theme }) => ({
 		marginLeft: theme.spacing(3),
 		width: 'auto',
 	},
-}));
+}))
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
 	padding: theme.spacing(0, 2),
@@ -50,7 +50,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
-}));
+}))
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	color: 'inherit',
@@ -64,29 +64,29 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 			width: '20ch',
 		},
 	},
-}));
+}))
 
 const FriendSearch = () => {
-	const [open, setOpen] = useRecoilState(friendsSearchDialogOpenState);
+	const [open, setOpen] = useRecoilState(friendsSearchDialogOpenState)
 
 	const handleClose = () => {
-		setOpen(false);
-	};
+		setOpen(false)
+	}
 
-	const [userName, setUserName] = useState('');
+	const [userName, setUserName] = useState('')
 	const [delayedUserName, setDelayedUserName] =
-		useRecoilState(userSearchTermState);
+		useRecoilState(userSearchTermState)
 
 	const debounceSearch = debounce(
 		(searchTerm: string) => setDelayedUserName(searchTerm),
 		1000,
 		{ leading: false, trailing: true }
-	);
+	)
 
 	useEffect(() => {
-		debounceSearch(userName);
-		return () => debounceSearch.cancel();
-	}, [debounceSearch, userName]);
+		debounceSearch(userName)
+		return () => debounceSearch.cancel()
+	}, [debounceSearch, userName])
 
 	return (
 		<Dialog
@@ -128,7 +128,7 @@ const FriendSearch = () => {
 				<SentRequests />
 			</Suspense>
 		</Dialog>
-	);
-};
+	)
+}
 
-export default FriendSearch;
+export default FriendSearch

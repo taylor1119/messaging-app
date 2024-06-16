@@ -1,56 +1,58 @@
-import { Request } from 'express';
-import { IWSChatTypingMsg, TWSMessage } from 'shared';
-import WebSocket from 'ws';
-import { IListener } from '../common/interfaces';
-import { socketConnections } from './app';
+import { Request } from 'express'
+import { IWSChatTypingMsg, TWSMessage } from 'shared'
+import WebSocket, { WebSocketServer } from 'ws'
+import { IListener } from '../common/interfaces'
 
-const wss = new WebSocket.Server({ noServer: true });
+//Hash map of userIds as key and socket connection as values
+export const socketConnections = new Map<string, WebSocket.WebSocket>()
+
+const wss = new WebSocketServer({ noServer: true })
 
 const messageListener =
 	(currentUserId: string): IListener =>
 	(messageStr) => {
-		const message: TWSMessage = JSON.parse(messageStr.toString());
+		const message: TWSMessage = JSON.parse(messageStr.toString())
 
 		switch (message.type) {
 			case 'chat-typing-started':
 				{
-					const conn = socketConnections.get(message.payload.userId);
-					if (!conn) return;
+					const conn = socketConnections.get(message.payload.userId)
+					if (!conn) return
 					const newMsg: IWSChatTypingMsg = {
 						type: message.type,
 						payload: { userId: currentUserId },
-					};
-					conn.send(JSON.stringify(newMsg));
+					}
+					conn.send(JSON.stringify(newMsg))
 				}
-				break;
+				break
 			case 'chat-typing-stopped':
 				{
-					const conn = socketConnections.get(message.payload.userId);
-					if (!conn) return;
+					const conn = socketConnections.get(message.payload.userId)
+					if (!conn) return
 					const newMsg: IWSChatTypingMsg = {
 						type: message.type,
 						payload: { userId: currentUserId },
-					};
-					conn.send(JSON.stringify(newMsg));
+					}
+					conn.send(JSON.stringify(newMsg))
 				}
-				break;
+				break
 			default:
-				console.log(message);
-				break;
+				console.log(message)
+				break
 		}
-	};
+	}
 
 wss.on('connection', (ws, request) => {
-	const req = request as Request;
-	const userId = req.currentUserId as string;
+	const req = request as Request
+	const userId = req.currentUserId as string
 
-	socketConnections.set(userId, ws);
+	socketConnections.set(userId, ws)
 
-	ws.on('message', messageListener(userId));
+	ws.on('message', messageListener(userId))
 
 	ws.on('close', () => {
-		socketConnections.delete(userId);
-	});
-});
+		socketConnections.delete(userId)
+	})
+})
 
-export default wss;
+export default wss

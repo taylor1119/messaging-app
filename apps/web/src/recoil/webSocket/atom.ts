@@ -1,8 +1,8 @@
-import { atom } from 'recoil';
+import { atom } from 'recoil'
 
 const webSocketState = atom<WebSocket | null>({
 	key: 'webSocketState',
 	default: null,
-});
+})
 
-export default webSocketState;
+export default webSocketState

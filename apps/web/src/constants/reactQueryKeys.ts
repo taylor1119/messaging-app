@@ -8,6 +8,6 @@ const queryKeys = {
 	friendRequestReceivers: ['users', 'friend-request-receiver'],
 	friendRequesters: ['users', 'friend-requesters'],
 	searchUsers: ['users', 'search'],
-};
+}
 
-export default queryKeys;
+export default queryKeys

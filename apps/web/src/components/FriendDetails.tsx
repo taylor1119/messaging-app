@@ -1,10 +1,10 @@
-import useUnfriend from '@/hooks/useUnfriend';
-import friendDetailsOpenState from '@/recoil/friendDetailsOpen/atom';
-import selectedFriendState from '@/recoil/selectedFriend/atom';
+import useUnfriend from '@/hooks/useUnfriend'
+import friendDetailsOpenState from '@/recoil/friendDetailsOpen/atom'
+import selectedFriendState from '@/recoil/selectedFriend/atom'
 import {
 	ChevronRight as ChevronRightIcon,
 	PersonRemove as PersonRemoveIcon,
-} from '@mui/icons-material';
+} from '@mui/icons-material'
 import {
 	Avatar,
 	Drawer,
@@ -13,25 +13,25 @@ import {
 	Typography,
 	useMediaQuery,
 	useTheme,
-} from '@mui/material';
-import { red } from '@mui/material/colors';
-import { useRecoilState } from 'recoil';
+} from '@mui/material'
+import { red } from '@mui/material/colors'
+import { useRecoilState } from 'recoil'
 
 const FriendDetails = () => {
 	const [selectedFriend, setSelectedFriend] =
-		useRecoilState(selectedFriendState);
-	const [open, setOpen] = useRecoilState(friendDetailsOpenState);
-	const { mutate: unfriend } = useUnfriend();
+		useRecoilState(selectedFriendState)
+	const [open, setOpen] = useRecoilState(friendDetailsOpenState)
+	const { mutate: unfriend } = useUnfriend()
 
 	const handleUnfriend = () => {
-		unfriend(selectedFriend?.id);
-		setSelectedFriend(null);
-	};
+		unfriend(selectedFriend?.id)
+		setSelectedFriend(null)
+	}
 
-	const theme = useTheme();
-	const isDownMd = useMediaQuery(theme.breakpoints.down('md'));
+	const theme = useTheme()
+	const isDownMd = useMediaQuery(theme.breakpoints.down('md'))
 
-	if (!selectedFriend || !open) return null;
+	if (!selectedFriend || !open) return null
 
 	return (
 		<Drawer
@@ -60,8 +60,16 @@ const FriendDetails = () => {
 				/>
 				<Typography variant='h5'>{selectedFriend.userName}</Typography>
 
-				<Stack spacing={3} direction='row' justifyContent='space-around'>
-					<Stack justifyContent='center' alignItems='center' spacing={1}>
+				<Stack
+					spacing={3}
+					direction='row'
+					justifyContent='space-around'
+				>
+					<Stack
+						justifyContent='center'
+						alignItems='center'
+						spacing={1}
+					>
 						<IconButton
 							onClick={handleUnfriend}
 							sx={{ p: 0, height: 36, width: 36 }}
@@ -75,7 +83,7 @@ const FriendDetails = () => {
 				</Stack>
 			</Stack>
 		</Drawer>
-	);
-};
+	)
+}
 
-export default FriendDetails;
+export default FriendDetails

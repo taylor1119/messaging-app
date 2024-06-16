@@ -1,22 +1,22 @@
-import themeState from '@/recoil/theme/atom';
+import themeState from '@/recoil/theme/atom'
 import {
 	DarkMode as DarkModeIcon,
 	LightMode as LightModeIcon,
-} from '@mui/icons-material';
-import { Box, IconButton, Stack, Typography } from '@mui/material';
-import { useRecoilState } from 'recoil';
-import LoginForm from './LoginForm';
-import SignUpForm from './SignUpForm';
+} from '@mui/icons-material'
+import { Box, IconButton, Stack, Typography } from '@mui/material'
+import { useRecoilState } from 'recoil'
+import LoginForm from './LoginForm'
+import SignUpForm from './SignUpForm'
 
 const SignUpLogin = () => {
-	const [theme, setTheme] = useRecoilState(themeState);
+	const [theme, setTheme] = useRecoilState(themeState)
 
 	const handleToggleTheme = () => {
 		setTheme((currVal) => ({
 			isUserPicked: true,
 			mode: currVal.mode === 'dark' ? 'light' : 'dark',
-		}));
-	};
+		}))
+	}
 
 	return (
 		<Stack
@@ -45,11 +45,15 @@ const SignUpLogin = () => {
 			</Stack>
 			<Stack justifyContent='center' alignItems='center'>
 				<IconButton size='large' onClick={handleToggleTheme}>
-					{theme.mode === 'dark' ? <DarkModeIcon /> : <LightModeIcon />}
+					{theme.mode === 'dark' ? (
+						<DarkModeIcon />
+					) : (
+						<LightModeIcon />
+					)}
 				</IconButton>
 			</Stack>
 		</Stack>
-	);
-};
+	)
+}
 
-export default SignUpLogin;
+export default SignUpLogin

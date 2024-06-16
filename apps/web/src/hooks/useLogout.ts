@@ -1,20 +1,20 @@
-import { axiosInstance } from '../services/axios';
+import { axiosInstance } from '../services/axios'
 
 const logoutReq = async () =>
-	await axiosInstance.delete('/users/logout', { withCredentials: true });
+	await axiosInstance.delete('/users/logout', { withCredentials: true })
 
 const useLogout = () => {
 	const logout = () => {
 		try {
-			logoutReq();
+			logoutReq()
 		} catch (error) {
-			console.error(error);
+			console.error(error)
 		}
-		localStorage.clear();
-		window.location.reload();
-	};
+		localStorage.clear()
+		window.location.reload()
+	}
 
-	return logout;
-};
+	return logout
+}
 
-export default useLogout;
+export default useLogout

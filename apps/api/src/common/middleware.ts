@@ -1,18 +1,18 @@
-import csurf from 'csurf';
-import { ErrorRequestHandler, RequestHandler } from 'express';
-import Joi from 'joi';
-import jwt from 'jsonwebtoken';
-import { IS_PROD, JWT_SECRET } from '../config/secrets';
-import { MESSAGE_INPUT } from '../MESSAGES/messages.strings';
+import csurf from 'csurf'
+import { ErrorRequestHandler, RequestHandler } from 'express'
+import Joi from 'joi'
+import jwt from 'jsonwebtoken'
+import { IS_PROD, JWT_SECRET } from '../config/secrets'
+import { MESSAGE_INPUT } from '../MESSAGES/messages.strings'
 import {
 	COOKIE_NAME,
 	LOGIN_INPUT,
 	SIGNUP_INPUT,
 	UPDATE_USER_INPUT,
 	USER_IDS,
-} from '../USERS/users.strings';
-import { IAsyncRequestHandler, isErrorWithCode } from './interfaces';
-import { DOCUMENT_IDS } from './strings';
+} from '../USERS/users.strings'
+import { IAsyncRequestHandler, isErrorWithCode } from './interfaces'
+import { DOCUMENT_IDS } from './strings'
 
 type TValidInputKeys =
 	| typeof USER_IDS
@@ -20,7 +20,7 @@ type TValidInputKeys =
 	| typeof SIGNUP_INPUT
 	| typeof UPDATE_USER_INPUT
 	| typeof MESSAGE_INPUT
-	| typeof DOCUMENT_IDS;
+	| typeof DOCUMENT_IDS
 
 export const validateInput =
 	(
@@ -28,17 +28,17 @@ export const validateInput =
 		validInputKey: TValidInputKeys
 	): RequestHandler =>
 	(req, res, next) => {
-		const { error, value } = validationSchema.validate(req.body);
+		const { error, value } = validationSchema.validate(req.body)
 		if (error) {
 			res.status(400).json({
 				error: 'validation error',
-			});
-			return;
+			})
+			return
 		}
 
-		req[validInputKey] = value;
-		next();
-	};
+		req[validInputKey] = value
+		next()
+	}
 
 export const catchAsyncReqHandlerErr =
 	(
@@ -48,37 +48,37 @@ export const catchAsyncReqHandlerErr =
 	(req, res, next) =>
 		handler(req, res, next).catch((err) =>
 			errHandler ? errHandler(err, req, res, next) : next(err)
-		);
+		)
 
 export const authenticate: RequestHandler = async (req, res, next) => {
 	try {
 		const currentUserId = jwt
 			.verify(req.signedCookies[COOKIE_NAME], JWT_SECRET)
-			.toString();
-		req.currentUserId = currentUserId;
-		next();
+			.toString()
+		req.currentUserId = currentUserId
+		next()
 	} catch (_error) {
-		res.clearCookie(COOKIE_NAME);
-		res.status(403).json({ error: 'invalid cookie' });
+		res.clearCookie(COOKIE_NAME)
+		res.status(403).json({ error: 'invalid cookie' })
 	}
-};
+}
 
 export const handleCsrfErr: ErrorRequestHandler = (err, req, res, next) => {
 	if (isErrorWithCode(err)) {
 		if (err.code === 'EBADCSRFTOKEN') {
-			res.clearCookie('token');
-			res.status(403).json({ error: 'form tampered with' });
-			return;
+			res.clearCookie('token')
+			res.status(403).json({ error: 'form tampered with' })
+			return
 		}
 	}
 
 	if (err instanceof Error) {
 		res.status(500).json({
 			error: 'internal server error',
-		});
-		next(err);
+		})
+		next(err)
 	}
-};
+}
 
 export const csrfLogin: RequestHandler = csurf({
 	ignoreMethods: ['POST'],
@@ -88,7 +88,7 @@ export const csrfLogin: RequestHandler = csurf({
 		secure: IS_PROD,
 		sameSite: 'strict',
 	},
-});
+})
 
 export const csrfProtection: RequestHandler = csurf({
 	cookie: {
@@ -97,4 +97,4 @@ export const csrfProtection: RequestHandler = csurf({
 		secure: IS_PROD,
 		sameSite: 'strict',
 	},
-});
+})

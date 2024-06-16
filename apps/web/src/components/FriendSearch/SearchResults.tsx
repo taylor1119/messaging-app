@@ -1,12 +1,12 @@
-import useSearchUsersByUserName from '@/hooks/useSearchUsersByUserName';
-import { Grid } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import UserCard from './UserCard';
+import useSearchUsersByUserName from '@/hooks/useSearchUsersByUserName'
+import { Grid } from '@mui/material'
+import Typography from '@mui/material/Typography'
+import UserCard from './UserCard'
 
 const SearchResults = ({ searchTerm }: { searchTerm: string }) => {
-	const { data: users } = useSearchUsersByUserName(searchTerm);
+	const { data: users } = useSearchUsersByUserName(searchTerm)
 
-	if (!users) return null;
+	if (!users) return null
 
 	return (
 		<>
@@ -25,7 +25,10 @@ const SearchResults = ({ searchTerm }: { searchTerm: string }) => {
 				>
 					{users.map((suggestedFriend) => (
 						<Grid item key={suggestedFriend.id}>
-							<UserCard cardType='send-request' user={suggestedFriend} />
+							<UserCard
+								cardType='send-request'
+								user={suggestedFriend}
+							/>
 						</Grid>
 					))}
 				</Grid>
@@ -40,7 +43,7 @@ const SearchResults = ({ searchTerm }: { searchTerm: string }) => {
 				</Typography>
 			)}
 		</>
-	);
-};
+	)
+}
 
-export default SearchResults;
+export default SearchResults

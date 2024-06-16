@@ -1,8 +1,8 @@
-import { atom } from 'recoil';
+import { atom } from 'recoil'
 
 const onlineUsersState = atom<string[]>({
 	key: 'onlineUsersState',
 	default: [],
-});
+})
 
-export default onlineUsersState;
+export default onlineUsersState

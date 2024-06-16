@@ -1,4 +1,4 @@
-import { object, ref, string } from 'yup';
+import { object, ref, string } from 'yup'
 
 export const signUpValidationSchema = object({
 	userName: string().required('Username is a required field'),
@@ -11,17 +11,17 @@ export const signUpValidationSchema = object({
 	confirmPassword: string()
 		.required('Password is a required field')
 		.oneOf([ref('password')], 'Passwords do not match'),
-}).required();
+}).required()
 
 export const loginValidationSchema = object({
 	email: string().required('Email is a required field'),
 	password: string().required(),
-}).required();
+}).required()
 
 export const chatMsgSchema = object({
 	text: string().required('cant sent empty chat message'),
-}).required();
+}).required()
 
 export const searchUserInputSchema = object({
 	text: string().min(3).required('cant sent empty chat message'),
-}).required();
+}).required()

@@ -1,4 +1,4 @@
-import './styles.css';
+import './styles.css'
 
 const TypingIndicator = () => (
 	<div>
@@ -8,6 +8,6 @@ const TypingIndicator = () => (
 			</div>
 		</div>
 	</div>
-);
+)
 
-export default TypingIndicator;
+export default TypingIndicator

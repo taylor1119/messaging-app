@@ -1,5 +1,5 @@
-import { TCurrentUser } from '@/common/types';
-import { getAccountsQuery, TMockAccount } from '@/hooks/useGetAccounts';
+import { TCurrentUser } from '@/common/types'
+import { getAccountsQuery, TMockAccount } from '@/hooks/useGetAccounts'
 import {
 	Avatar,
 	Divider,
@@ -10,28 +10,28 @@ import {
 	Modal,
 	Paper,
 	Typography,
-} from '@mui/material';
-import { AxiosError } from 'axios';
-import { UseMutateFunction, useQuery } from 'react-query';
-import Loading from '../Loading';
+} from '@mui/material'
+import { AxiosError } from 'axios'
+import { UseMutateFunction, useQuery } from 'react-query'
+import Loading from '../Loading'
 
 interface IMockAccountsListProps {
-	openMockAccountsList: boolean;
-	handleCloseOpenMockAccountsList: () => void;
+	openMockAccountsList: boolean
+	handleCloseOpenMockAccountsList: () => void
 	mutate: UseMutateFunction<
 		TCurrentUser,
 		AxiosError<
 			{
-				error: string;
+				error: string
 			},
 			unknown
 		>,
 		{
-			email: string;
-			password: string;
+			email: string
+			password: string
 		},
 		unknown
-	>;
+	>
 }
 
 const MockAccountsList = ({
@@ -39,15 +39,19 @@ const MockAccountsList = ({
 	openMockAccountsList,
 	mutate,
 }: IMockAccountsListProps) => {
-	const { data: accounts, isLoading } = useQuery('accounts', getAccountsQuery, {
-		suspense: false,
-	});
+	const { data: accounts, isLoading } = useQuery(
+		'accounts',
+		getAccountsQuery,
+		{
+			suspense: false,
+		}
+	)
 	const handleSelectAccount =
 		({ email }: TMockAccount) =>
 		() => {
-			mutate({ email, password: 'password' });
-			handleCloseOpenMockAccountsList();
-		};
+			mutate({ email, password: 'password' })
+			handleCloseOpenMockAccountsList()
+		}
 
 	return (
 		<Modal
@@ -83,7 +87,10 @@ const MockAccountsList = ({
 								onClick={handleSelectAccount(account)}
 							>
 								<ListItemAvatar>
-									<Avatar src={account.avatar} alt={account.userName} />
+									<Avatar
+										src={account.avatar}
+										alt={account.userName}
+									/>
 								</ListItemAvatar>
 								<ListItemText
 									primary={account.userName}
@@ -95,7 +102,7 @@ const MockAccountsList = ({
 				)}
 			</Paper>
 		</Modal>
-	);
-};
+	)
+}
 
-export default MockAccountsList;
+export default MockAccountsList

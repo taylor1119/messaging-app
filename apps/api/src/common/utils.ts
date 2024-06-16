@@ -1,3 +1,3 @@
-import chalk from 'chalk';
+import chalk from 'chalk'
 
-export const logError = (message: string) => console.error(chalk.red(message));
+export const logError = (message: string) => console.error(chalk.red(message))

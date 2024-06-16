@@ -1,9 +1,9 @@
-import { ConditionalWrapper } from '@/common/utils';
-import queryKeys from '@/constants/reactQueryKeys';
-import useGetFriendsIds from '@/hooks/useGetFriends';
-import useGetOnlineUsers from '@/hooks/useGetOnlineUsers';
-import useGetUsersById from '@/hooks/useGetUsersById';
-import selectedFriendState from '@/recoil/selectedFriend/atom';
+import { ConditionalWrapper } from '@/common/utils'
+import queryKeys from '@/constants/reactQueryKeys'
+import useGetFriendsIds from '@/hooks/useGetFriends'
+import useGetOnlineUsers from '@/hooks/useGetOnlineUsers'
+import useGetUsersById from '@/hooks/useGetUsersById'
+import selectedFriendState from '@/recoil/selectedFriend/atom'
 import {
 	Avatar,
 	Badge,
@@ -11,12 +11,12 @@ import {
 	List,
 	ListItemAvatar,
 	styled,
-} from '@mui/material';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import { ReactElement } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { IUser } from 'shared';
+} from '@mui/material'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import { ReactElement } from 'react'
+import { useSetRecoilState } from 'recoil'
+import { IUser } from 'shared'
 
 const OnlineBadge = styled(Badge)(({ theme }) => ({
 	'& .MuiBadge-badge': {
@@ -45,7 +45,7 @@ const OnlineBadge = styled(Badge)(({ theme }) => ({
 			opacity: 0,
 		},
 	},
-}));
+}))
 
 const wrapper = (children: ReactElement) => (
 	<OnlineBadge
@@ -55,23 +55,26 @@ const wrapper = (children: ReactElement) => (
 	>
 		{children}
 	</OnlineBadge>
-);
+)
 
 const FriendsListItem = ({
 	friend,
 	isOnline,
 }: {
-	friend: IUser;
-	isOnline: boolean;
+	friend: IUser
+	isOnline: boolean
 }) => {
-	const setSelectedFriend = useSetRecoilState(selectedFriendState);
-	const handleSelectFriend = () => setSelectedFriend(friend);
+	const setSelectedFriend = useSetRecoilState(selectedFriendState)
+	const handleSelectFriend = () => setSelectedFriend(friend)
 
 	return (
 		<ListItem button onClick={handleSelectFriend}>
 			<ListItemAvatar>
 				<ConditionalWrapper condition={isOnline} wrapper={wrapper}>
-					<Avatar src={friend.avatar} sx={{ width: '55px', height: '55px' }} />
+					<Avatar
+						src={friend.avatar}
+						sx={{ width: '55px', height: '55px' }}
+					/>
 				</ConditionalWrapper>
 			</ListItemAvatar>
 			<ListItemText
@@ -79,13 +82,13 @@ const FriendsListItem = ({
 				primary={friend.userName}
 			/>
 		</ListItem>
-	);
-};
+	)
+}
 
 const FriendsList = () => {
-	const { data: friendIds } = useGetFriendsIds();
-	const { data: friends } = useGetUsersById(friendIds, queryKeys.friends);
-	const { data: onlineUsers } = useGetOnlineUsers();
+	const { data: friendIds } = useGetFriendsIds()
+	const { data: friends } = useGetUsersById(friendIds, queryKeys.friends)
+	const { data: onlineUsers } = useGetOnlineUsers()
 
 	return (
 		<Drawer
@@ -125,7 +128,7 @@ const FriendsList = () => {
 				))}
 			</List>
 		</Drawer>
-	);
-};
+	)
+}
 
-export default FriendsList;
+export default FriendsList

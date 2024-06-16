@@ -1,3 +1,3 @@
-import { IFriendRequest } from 'shared';
+import { IFriendRequest } from 'shared'
 
-export type TFriendRequestInput = Omit<IFriendRequest, 'id'>;
+export type TFriendRequestInput = Omit<IFriendRequest, 'id'>

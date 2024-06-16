@@ -1,8 +1,8 @@
-import { IChatMsg, IUser } from 'shared';
-import { InferType } from 'yup';
-import { loginValidationSchema, signUpValidationSchema } from './validation';
+import { IChatMsg, IUser } from 'shared'
+import { InferType } from 'yup'
+import { loginValidationSchema, signUpValidationSchema } from './validation'
 
-export type TCurrentUser = Omit<IUser, 'friends'> & { csrfToken: string };
-export type TLoginInput = InferType<typeof loginValidationSchema>;
-export type TSignUpInput = InferType<typeof signUpValidationSchema>;
-export type TSendMessageInput = Omit<IChatMsg, 'id' | 'status'>;
+export type TCurrentUser = Omit<IUser, 'friends'> & { csrfToken: string }
+export type TLoginInput = InferType<typeof loginValidationSchema>
+export type TSignUpInput = InferType<typeof signUpValidationSchema>
+export type TSendMessageInput = Omit<IChatMsg, 'id' | 'status'>

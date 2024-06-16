@@ -1,1 +1,1 @@
-export const DOCUMENT_IDS = 'documentIds';
+export const DOCUMENT_IDS = 'documentIds'

@@ -1,6 +1,6 @@
-import { ITheme } from '@/common/interfaces';
-import { atom } from 'recoil';
-import themePersistEffect from './effect';
+import { ITheme } from '@/common/interfaces'
+import { atom } from 'recoil'
+import themePersistEffect from './effect'
 
 const themeState = atom<ITheme>({
 	key: 'themeState',
@@ -9,6 +9,6 @@ const themeState = atom<ITheme>({
 		isUserPicked: false,
 	},
 	effects: [themePersistEffect],
-});
+})
 
-export default themeState;
+export default themeState

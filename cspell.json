@@ -18,6 +18,7 @@
 		"EBADCSRFTOKEN",
 		"env",
 		"hookform",
+		"pkgroll",
 		"resave",
 		"tsup",
 		"TTFB",

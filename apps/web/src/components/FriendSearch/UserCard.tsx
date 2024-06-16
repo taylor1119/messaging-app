@@ -1,9 +1,9 @@
-import queryKeys from '@/constants/reactQueryKeys';
+import queryKeys from '@/constants/reactQueryKeys'
 import {
 	useAcceptFriendRequest,
 	useRejectFriendRequest,
 	useSendFriendRequest,
-} from '@/hooks/useFriendRequest';
+} from '@/hooks/useFriendRequest'
 import {
 	Button,
 	Card,
@@ -12,43 +12,43 @@ import {
 	CardMedia,
 	Stack,
 	Tooltip,
-} from '@mui/material';
-import Typography from '@mui/material/Typography';
-import { useQueryClient } from 'react-query';
-import { IUser } from 'shared';
+} from '@mui/material'
+import Typography from '@mui/material/Typography'
+import { useQueryClient } from 'react-query'
+import { IUser } from 'shared'
 
 interface IReceivedRequestCardProps {
-	cardType: 'received-request';
-	user: IUser;
-	requestId: string;
+	cardType: 'received-request'
+	user: IUser
+	requestId: string
 }
 
 interface ISentRequestCardProps {
-	cardType: 'sent-request';
-	user: IUser;
+	cardType: 'sent-request'
+	user: IUser
 }
 
 interface ISendRequestProps {
-	cardType: 'send-request';
-	user: IUser;
+	cardType: 'send-request'
+	user: IUser
 }
 
 type TUserCardProps =
 	| IReceivedRequestCardProps
 	| ISentRequestCardProps
-	| ISendRequestProps;
+	| ISendRequestProps
 
 const UserCard = (props: TUserCardProps) => {
-	const { user } = props;
+	const { user } = props
 
-	const { mutate: sendFriendRequest } = useSendFriendRequest();
-	const { mutate: rejectFriendRequest } = useRejectFriendRequest();
-	const { mutate: acceptFriendRequest } = useAcceptFriendRequest(props.user);
-	const queryClient = useQueryClient();
+	const { mutate: sendFriendRequest } = useSendFriendRequest()
+	const { mutate: rejectFriendRequest } = useRejectFriendRequest()
+	const { mutate: acceptFriendRequest } = useAcceptFriendRequest(props.user)
+	const queryClient = useQueryClient()
 	const isFriend =
 		queryClient
 			.getQueryData<string[]>(queryKeys.friendsIds)
-			?.indexOf(user.id) !== -1;
+			?.indexOf(user.id) !== -1
 
 	return (
 		<Card sx={{ width: 200 }}>
@@ -65,7 +65,12 @@ const UserCard = (props: TUserCardProps) => {
 					title={user.userName}
 					disableHoverListener={user.userName.length < 10}
 				>
-					<Typography gutterBottom variant='h5' component='div' noWrap>
+					<Typography
+						gutterBottom
+						variant='h5'
+						component='div'
+						noWrap
+					>
 						{user.userName}
 					</Typography>
 				</Tooltip>
@@ -83,13 +88,17 @@ const UserCard = (props: TUserCardProps) => {
 								>
 									{isFriend ? 'friend' : 'add friend'}
 								</Button>
-							);
+							)
 						case 'sent-request':
 							return (
-								<Button disabled={true} variant='outlined' fullWidth>
+								<Button
+									disabled={true}
+									variant='outlined'
+									fullWidth
+								>
 									request sent
 								</Button>
-							);
+							)
 						case 'received-request':
 							return (
 								<Stack sx={{ width: '100%' }} spacing={1}>
@@ -97,7 +106,9 @@ const UserCard = (props: TUserCardProps) => {
 										disabled={false}
 										variant='contained'
 										fullWidth
-										onClick={() => acceptFriendRequest(props.requestId)}
+										onClick={() =>
+											acceptFriendRequest(props.requestId)
+										}
 									>
 										Accept Request
 									</Button>
@@ -106,19 +117,21 @@ const UserCard = (props: TUserCardProps) => {
 										variant='contained'
 										color='error'
 										fullWidth
-										onClick={() => rejectFriendRequest(props.requestId)}
+										onClick={() =>
+											rejectFriendRequest(props.requestId)
+										}
 									>
 										Reject Request
 									</Button>
 								</Stack>
-							);
+							)
 						default:
-							return <h1>Error</h1>;
+							return <h1>Error</h1>
 					}
 				})()}
 			</CardActions>
 		</Card>
-	);
-};
+	)
+}
 
-export default UserCard;
+export default UserCard
