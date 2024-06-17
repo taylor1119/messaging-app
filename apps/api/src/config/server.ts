@@ -3,14 +3,14 @@ import http from 'http'
 import jwt from 'jsonwebtoken'
 import { COOKIE_NAME } from '../USERS/users.strings'
 import createExpressApp, { cookieParser } from './app'
-import { JWT_SECRET } from './secrets'
+import { IS_PROD, JWT_SECRET } from './secrets'
 import wss from './socket'
 
 export default function createServer() {
 	const server = http.createServer(createExpressApp())
 
 	server.on('upgrade', async (request, socket, head) => {
-		console.log('Parsing cookie 🍪 from request...')
+		if (!IS_PROD) console.log('Parsing cookie 🍪 from request...')
 
 		const req = request as express.Request
 		const res = {} as express.Response
@@ -22,7 +22,7 @@ export default function createServer() {
 					.toString()
 				req.currentUserId = currentUserId
 
-				console.log('Cookie 🍪 is parsed!')
+				if (!IS_PROD) console.log('Cookie 🍪 is parsed!')
 
 				wss.handleUpgrade(req, socket, head, (ws) => {
 					wss.emit('connection', ws, request)
