@@ -1,7 +1,6 @@
 import cookie from 'cookie-parser'
 import cors from 'cors'
 import express, { Express, RequestHandler } from 'express'
-import rateLimit from 'express-rate-limit'
 import helmet from 'helmet'
 import hpp from 'hpp'
 import morgan from 'morgan'
@@ -28,14 +27,18 @@ export default function createExpressApp(): Express {
 	app.use(express.json())
 
 	// Limiting each IP to 100 requests per windowMs
-	if (IS_PROD) {
+	/*if (IS_PROD) {
+		app.set('trust proxy', 1)
+
 		const limiter = rateLimit({
 			windowMs: 15 * 60 * 1000, // 15 minutes
 			max: 100,
+			standardHeaders: 'draft-7',
+			legacyHeaders: false,
 		})
 
 		app.use('/api', limiter)
-	}
+	}*/
 
 	//config cors
 	if (!IS_PROD) app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }))
@@ -50,6 +53,8 @@ export default function createExpressApp(): Express {
 	app.use('/api/users', usersRouter)
 	app.use('/api/messages', messagesRouter)
 	app.use('/api/friend-requests', friendRequestRouter)
+
+	app.get('/ip', (req, res) => res.send(req.ip))
 
 	const distPath = path.join(IS_PROD ? '../../' : '../../..', '/web/dist')
 	app.use(express.static(path.join(import.meta.dirname, distPath)))
